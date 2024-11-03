@@ -1,0 +1,22 @@
+api.influmation:443 {
+    tls /usr/local/etc/caddy/certs/api.influmation+1.pem /usr/local/etc/caddy/certs/api.influmation+1-key.pem
+
+
+    @websockets {
+        header Connection Upgrade
+        header Upgrade    websocket
+    }
+
+    reverse_proxy @websockets web:81
+
+    reverse_proxy web:3333 {
+       transport http {
+            keepalive 500ms
+            dial_timeout 500ms
+            read_timeout 500ms
+            write_timeout 500ms
+        }
+      lb_try_duration 1000ms
+      lb_try_interval 500ms
+    }
+}

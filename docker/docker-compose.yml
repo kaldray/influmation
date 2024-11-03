@@ -1,0 +1,32 @@
+name: influmation
+services:
+  web:
+    env_file: ../.env
+    build:
+      context: ../
+      dockerfile: ./docker/dev.Dockerfile
+    volumes:
+      - node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
+      - ../:/usr/src/app
+      - ../tmp/:/usr/src/app/tmp/
+    container_name: 'adonis'
+  proxy:
+    env_file: ../.env
+    image: caddy:2.6.4-alpine
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certs:/usr/local/etc/caddy/certs
+      - caddy_data:/data
+      - caddy_config:/config
+    container_name: 'caddy'
+volumes:
+  node_modules:
+    driver: local
+  caddy_data:
+    external: true
+  caddy_config: {}
