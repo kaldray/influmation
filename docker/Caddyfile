@@ -9,14 +9,5 @@ api.influmation:443 {
 
     reverse_proxy @websockets web:81
 
-    reverse_proxy web:3333 {
-       transport http {
-            keepalive 500ms
-            dial_timeout 500ms
-            read_timeout 500ms
-            write_timeout 500ms
-        }
-      lb_try_duration 1000ms
-      lb_try_interval 500ms
-    }
+    reverse_proxy web:3333
 }
