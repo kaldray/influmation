@@ -16,6 +16,7 @@
   "imports": {
     "#instagram/*": "./app/auth/instagram/*.js",
     "#auth/*": "./app/auth/*.js",
+    "#utils/*": "./app/utils/*.js",
     "#user/*": "./app/user/*.js",
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
@@ -42,6 +43,8 @@
     "@japa/assert": "^3.0.0",
     "@japa/plugin-adonisjs": "^3.0.1",
     "@japa/runner": "^3.1.4",
+    "@pandacss/dev": "^0.47.1",
+    "@park-ui/panda-preset": "^0.42.0",
     "@swc/core": "1.7.26",
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.7.5",
@@ -59,12 +62,14 @@
   "dependencies": {
     "@adonisjs/auth": "^9.2.3",
     "@adonisjs/core": "^6.14.1",
+    "@adonisjs/cors": "^2.2.1",
     "@adonisjs/inertia": "^2.0.1",
     "@adonisjs/lucid": "^21.3.0",
     "@adonisjs/session": "^7.5.0",
     "@adonisjs/shield": "^8.1.1",
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^3.0.0",
+    "@ark-ui/react": "^4.3.0",
     "@inertiajs/react": "2.0.0-beta.2",
     "@vinejs/vine": "^2.1.0",
     "better-sqlite3": "^11.5.0",
@@ -72,7 +77,8 @@
     "luxon": "^3.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "vite-tsconfig-paths": "^5.1.2"
   },
   "hotHook": {
     "boundaries": [

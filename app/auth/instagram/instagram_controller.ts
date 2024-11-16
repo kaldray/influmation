@@ -1,9 +1,10 @@
+import { generateState, verifyState } from '#auth/oauth'
+import IntagramService from '#instagram/instagram_service'
+import { url_authorization_schema } from '#instagram/instagram_validators'
+import UserRepository from '#user/user_repository'
+import { assert } from '#utils/utils'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
-import IntagramService from '#instagram/instagram_service'
-import UserRepository from '#user/user_repository'
-import { generateState, verifyState } from '#auth/oauth'
-import { url_authorization_schema } from '#instagram/instagram_validators'
 import vine from '@vinejs/vine'
 
 @inject()
@@ -44,6 +45,20 @@ export default class InstargamController {
       session.put('instagram_token', access_token)
       session.put('instagram_token_expires', user.expiresAt)
       await auth.use('web').login(user)
+      response.redirect('/home')
     }
+  }
+
+  async getMedia({ auth }: HttpContext) {
+    assert(auth.user, 'No user')
+    const token = auth.user
+    const data = await this.instagram_service.getUserMediaIDs(
+      token.accessToken,
+      token.oauthProviderId
+    )
+    const ids = data.data.map((value) => value.id)
+    const promises = ids.map((id) => this.instagram_service.getUserMedia(token.accessToken, id))
+    const medias = await Promise.all(promises)
+    return medias
   }
 }

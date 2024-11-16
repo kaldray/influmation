@@ -4,12 +4,11 @@
     "rootDir": "./",
     "outDir": "./build",
     "jsx": "react-jsx",
-    "jsxImportSource": "@kitajs/html",
-    "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
     "paths": {
       "#instagram/*": ["./app/auth/instagram/*"],
       "#user/*": ["./app/user/*"],
-      "#auth/*": ["./app/auth/*.ts"]
+      "#auth/*": ["./app/auth/*.ts"],
+      "#utils/*": ["./app/utils/*.ts"]
     }
   }
 }

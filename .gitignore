@@ -26,3 +26,7 @@ yarn-error.log
 docker/certs
 .pnpm-store/v3
 tmp/db.sqlite3
+
+## Panda
+styled-system
+styled-system
