@@ -5,7 +5,11 @@ export default defineConfig({
   preflight: true,
   presets: ['@pandacss/preset-base', '@park-ui/panda-preset'],
   // Where to look for your css declarations
-  include: ['./inertia/pages/**/*.{ts,tsx}'],
+  include: [
+    './inertia/pages/**/*.{ts,tsx}',
+    './inertia/src/components/**/*.{ts,tsx}',
+    './inertia/src/components/*.{ts,tsx}',
+  ],
 
   // Files to exclude
   exclude: [],

@@ -28,7 +28,10 @@ export default defineConfig({
   },
   plugins: [
     inertia({ ssr: { enabled: true, entrypoint: 'inertia/app/ssr.tsx' } }),
-    adonisjs({ entrypoints: ['inertia/app/app.tsx'], reload: ['resources/views/**/*.edge'] }),
+    adonisjs({
+      entrypoints: ['inertia/app/app.tsx'],
+      reload: ['resources/views/**/*.edge', './inertia/src/components/**/*.{ts,tsx}'],
+    }),
     react(),
     tsconfigPaths({ root: './inertia' }),
   ],
