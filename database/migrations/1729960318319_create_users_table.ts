@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('username').notNullable()
       table.integer('expires_in').notNullable()
       table.string('access_token').notNullable()
-      table.bigint('oauth_provider_id').notNullable().unsigned()
+      table.string('oauth_provider_id').notNullable()
       table.string('oauth_provider_name').notNullable()
       table.unique(['oauth_provider_id', 'oauth_provider_name'])
 
