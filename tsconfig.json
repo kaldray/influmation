@@ -4,11 +4,13 @@
     "rootDir": "./",
     "outDir": "./build",
     "jsx": "react-jsx",
+    "resolvePackageJsonImports": true,
     "paths": {
       "#instagram/*": ["./app/auth/instagram/*"],
       "#user/*": ["./app/user/*"],
       "#auth/*": ["./app/auth/*.ts"],
-      "#utils/*": ["./app/utils/*.ts"]
+      "#utils/*": ["./app/utils/*.ts"],
+      "#exceptions/*": ["./app/exceptions/*.ts"]
     }
   }
 }

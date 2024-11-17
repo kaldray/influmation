@@ -1,3 +1,4 @@
+import StateMismatchException from '#exceptions/exceptions'
 import { base64 } from '@adonisjs/core/helpers'
 
 export function generateState(): string {
@@ -8,7 +9,7 @@ export function generateState(): string {
 
 export function verifyState(urlState: string, sessionState: string): boolean {
   if (urlState !== sessionState) {
-    throw new Error('State mismatch')
+    throw new StateMismatchException('State mismatch')
   }
   return true
 }

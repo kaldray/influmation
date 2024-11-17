@@ -10,14 +10,16 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 const InstagramController = () => import('#instagram/instagram_controller')
+const AuthController = () => import('#auth/auth_controller')
 
 router.get('/', async ({ inertia }) => {
-  return inertia.render('home')
+  return inertia.render('guest')
 })
 
 router
   .group(() => {
     router.get('/home', [InstagramController, 'getMedia'])
+    router.post('/logout', [AuthController, 'logout'])
   })
   .use(middleware.auth())
 

@@ -2,6 +2,7 @@ import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
 import { errors } from '@adonisjs/core'
+import StateMismatchException from '#exceptions/exceptions'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -37,6 +38,9 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof errors.E_HTTP_REQUEST_ABORTED) {
       return ctx.view.render('pages/errors/not_found', { error })
+    }
+    if (error instanceof StateMismatchException) {
+      return ctx.response.redirect('/')
     }
     return super.handle(error, ctx)
   }
