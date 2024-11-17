@@ -20,7 +20,7 @@ export default class InstargamController {
     return response.redirect().status(303).toPath(this.instagram_service.makeAutorizationUrl(state))
   }
 
-  async handleRedirect({ request, response, auth, session }: HttpContext) {
+  async handleRedirect({ request, response, auth, session, inertia }: HttpContext) {
     const sessionState = session.pull('state_insta')
     const data = await vine.validate({ schema: url_authorization_schema, data: request.qs() })
     verifyState(data.state, sessionState)
@@ -45,11 +45,12 @@ export default class InstargamController {
       session.put('instagram_token', access_token)
       session.put('instagram_token_expires', user.expiresAt)
       await auth.use('web').login(user)
+      inertia.encryptHistory(true)
       response.redirect('/home')
     }
   }
 
-  async getMedia({ auth }: HttpContext) {
+  async getMedia({ auth, inertia }: HttpContext) {
     assert(auth.user, 'No user')
     const token = auth.user
     const data = await this.instagram_service.getUserMediaIDs(
@@ -59,6 +60,6 @@ export default class InstargamController {
     const ids = data.data.map((value) => value.id)
     const promises = ids.map((id) => this.instagram_service.getUserMedia(token.accessToken, id))
     const medias = await Promise.all(promises)
-    return medias
+    return inertia.render('home', { medias })
   }
 }
