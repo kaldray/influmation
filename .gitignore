@@ -6,6 +6,7 @@ build
 .env.local
 .env.production.local
 .env.development.local
+.editorconfig
 
 # Frontend assets compiled code
 public/assets
@@ -28,5 +29,4 @@ docker/certs
 tmp/db.sqlite3
 
 ## Panda
-styled-system
 styled-system
