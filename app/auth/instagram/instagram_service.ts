@@ -55,8 +55,6 @@ type IgMediaUser =
       username: string
     }
 
-type IgMediasUser = Array<IgMediaUser>
-
 export type IgMediaChamps =
   | 'boost_ads_list'
   | 'boost_eligibility_info'
@@ -135,7 +133,7 @@ export default class IntagramService {
     return response.json() as Promise<IdsMediaUserResponse>
   }
 
-  async getUserMedia(acces_token: string, media_id: string) {
+  async getUserMedia(acces_token: string, media_id: string): Promise<IgMediaUser> {
     const url = new URL(`${this.#base_url}/${media_id}/`)
     const arr_fields: Array<IgMediaChamps> = [
       'id',
@@ -153,7 +151,7 @@ export default class IntagramService {
     url.searchParams.set('access_token', acces_token)
     url.searchParams.set('fields', media_fields)
     const response = await fetch(url)
-    return response.json() as Promise<IgMediasUser>
+    return response.json() as Promise<IgMediaUser>
   }
 
   #buildAutorizationSearchParams(state: string): string {
