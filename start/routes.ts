@@ -12,10 +12,6 @@ import { middleware } from './kernel.js'
 const InstagramController = () => import('#instagram/instagram_controller')
 const AuthController = () => import('#auth/auth_controller')
 
-router.get('/', async ({ inertia }) => {
-  return inertia.render('guest')
-})
-
 router
   .group(() => {
     router.get('/home', [InstagramController, 'getMedia'])
@@ -29,4 +25,9 @@ router
   })
   .prefix('/api/v1')
 
+router.get('/', async ({ inertia }) => {
+  return inertia.render('guest')
+})
+router.get('/webhooks', () => 'Webhooks')
+router.get('/vie-privee', ({ inertia }) => inertia.render('privacy'))
 router.get('login', [InstagramController, 'authorization'])
