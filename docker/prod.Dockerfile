@@ -1,25 +1,19 @@
 FROM node:20.18-alpine3.19 AS base
+RUN corepack enable pnpm
 
 # All deps stage
 FROM base AS deps
 WORKDIR /app
-ADD package.json pnpm-lock.yaml ./
+ADD package.json pnpm-lock.yaml panda.config.ts styled-system ./
 
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
-  # Allow install without lockfile, so example works even without Node.js installed locally
-  else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
-  fi
+RUN pnpm i
 
-COPY . .
 
 # Production only deps stage
 FROM base AS production-deps
 WORKDIR /app
-ADD package.json pnpm-lock.yaml ./
-RUN corepack enable pnpm && pnpm install
+ADD package.json pnpm-lock.yaml panda.config.ts ./
+RUN pnpm install
 
 # Build stage
 FROM base AS build

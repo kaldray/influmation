@@ -4,7 +4,6 @@
     "rootDir": "./",
     "outDir": "./build",
     "jsx": "react-jsx",
-    "resolvePackageJsonImports": true,
     "paths": {
       "#instagram/*": ["./app/auth/instagram/*"],
       "#user/*": ["./app/user/*"],
@@ -12,5 +11,6 @@
       "#utils/*": ["./app/utils/*.ts"],
       "#exceptions/*": ["./app/exceptions/*.ts"]
     }
-  }
+  },
+  "exclude": ["./inertia/**/*", "node_modules", "build"]
 }

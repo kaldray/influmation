@@ -28,6 +28,9 @@ router
 router.get('/', async ({ inertia }) => {
   return inertia.render('guest')
 })
-router.get('/webhooks', () => 'Webhooks')
+router.get('/webhooks', ({ request }) => {
+  console.log(request.qs())
+  return 'Webhooks'
+})
 router.get('/vie-privee', ({ inertia }) => inertia.render('privacy'))
 router.get('login', [InstagramController, 'authorization'])

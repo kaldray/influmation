@@ -1,9 +1,9 @@
 import inertia from '@adonisjs/inertia/client'
 import adonisjs from '@adonisjs/vite/client'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { getDirname } from '@adonisjs/core/helpers'
 
 export default defineConfig({
   server: {
@@ -22,17 +22,17 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '#style': resolve(import.meta.dirname, './styled-system'),
-      '#ui': resolve(import.meta.dirname, './inertia/src'),
+      '#style': `${getDirname(import.meta.url)}/styled-system`,
+      '#ui': `${getDirname(import.meta.url)}/inertia/src`,
     },
   },
   plugins: [
     inertia({ ssr: { enabled: true, entrypoint: 'inertia/app/ssr.tsx' } }),
+    react(),
     adonisjs({
       entrypoints: ['inertia/app/app.tsx'],
       reload: ['resources/views/**/*.edge', './inertia/src/components/**/*.{ts,tsx}'],
     }),
-    react(),
     tsconfigPaths({ root: './inertia' }),
   ],
 })

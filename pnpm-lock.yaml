@@ -67,7 +67,7 @@ importers:
         version: 0.2.2
       vite-tsconfig-paths:
         specifier: ^5.1.2
-        version: 5.1.2(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(lightningcss@1.25.1))
+        version: 5.1.3(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(lightningcss@1.25.1))
     devDependencies:
       '@adonisjs/assembler':
         specifier: ^7.8.2
@@ -130,7 +130,7 @@ importers:
         specifier: ^10.9.4
         version: 10.9.4(@swc/core@1.7.26(@swc/helpers@0.5.15))(@types/node@22.8.1)(typescript@5.6.3)
       typescript:
-        specifier: ~5.6
+        specifier: ^5.6.3
         version: 5.6.3
       vite:
         specifier: ^5.4.8
@@ -4523,8 +4523,8 @@ packages:
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
-  vite-tsconfig-paths@5.1.2:
-    resolution: {integrity: sha512-gEIbKfJzSEv0yR3XS2QEocKetONoWkbROj6hGx0FHM18qKUojhvcokQsxQx5nMkelZq2n37zbSGCJn+FSODSjA==}
+  vite-tsconfig-paths@5.1.3:
+    resolution: {integrity: sha512-0bz+PDlLpGfP2CigeSKL9NFTF1KtXkeHGZSSaGQSuPZH77GhoiQaA8IjYgOaynSuwlDTolSUEU0ErVvju3NURg==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -9780,7 +9780,7 @@ snapshots:
       micromatch: 4.0.8
       vite: 5.4.10(@types/node@22.8.1)(lightningcss@1.25.1)
 
-  vite-tsconfig-paths@5.1.2(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(lightningcss@1.25.1)):
+  vite-tsconfig-paths@5.1.3(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.1)(lightningcss@1.25.1)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
