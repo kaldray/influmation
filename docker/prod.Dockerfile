@@ -15,11 +15,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 COPY --from=deps /app/styled-system /app/styled-system
 ADD . .
-RUN node ace build
+RUN NODE_ENV=production node ace build
 
 # Production stage
 FROM base
-ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/build /app

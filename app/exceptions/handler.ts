@@ -23,12 +23,8 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * to return the HTML contents to send as a response.
    */
   protected statusPages: Record<StatusPageRange, StatusPageRenderer> = {
-    '404': (error, { view }) => {
-      return view.render('pages/errors/not_found', { error })
-    },
-    '500..599': (error, { view }) => {
-      return view.render('pages/errors/server_error', { error })
-    },
+    '404': (error, { inertia }) => inertia.render('errors/not_found', { error }),
+    '500..599': (error, { inertia }) => inertia.render('errors/server_error', { error }),
   }
 
   /**
@@ -37,7 +33,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    */
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof errors.E_HTTP_REQUEST_ABORTED) {
-      return ctx.view.render('pages/errors/not_found', { error })
+      return ctx.inertia.render('errors/not_found', { error })
     }
     if (error instanceof StateMismatchException) {
       return ctx.response.redirect('/')
