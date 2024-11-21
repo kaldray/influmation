@@ -2,5 +2,6 @@ node_modules
 .turbo
 .git
 .DS_Store
+styled-system
 .editorconfig
 .env

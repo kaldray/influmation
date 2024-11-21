@@ -4,21 +4,16 @@ RUN corepack enable pnpm
 # All deps stage
 FROM base AS deps
 WORKDIR /app
-ADD package.json pnpm-lock.yaml panda.config.ts styled-system ./
-
+COPY . .
 RUN pnpm i
 
 
-# Production only deps stage
-FROM base AS production-deps
-WORKDIR /app
-ADD package.json pnpm-lock.yaml panda.config.ts ./
-RUN pnpm install
 
 # Build stage
 FROM base AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
+COPY --from=deps /app/styled-system /app/styled-system
 ADD . .
 RUN node ace build
 
@@ -26,7 +21,7 @@ RUN node ace build
 FROM base
 ENV NODE_ENV=production
 WORKDIR /app
-COPY --from=production-deps /app/node_modules /app/node_modules
+COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
 EXPOSE 3333
 CMD ["node", "./bin/server.js"]
