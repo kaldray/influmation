@@ -77,7 +77,7 @@ export default defineConfig({
 
   metaFiles: [
     {
-      pattern: 'resources/views/**/*.tsx',
+      pattern: 'resources/views/**/*.edge',
       reloadServer: false,
     },
     {
