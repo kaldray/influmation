@@ -26,4 +26,5 @@ export default await Env.create(new URL('../', import.meta.url), {
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory'] as const),
   INSTAGRAM_CLIENT_ID: Env.schema.string(),
   INSTAGRAM_CLIENT_SECRET: Env.schema.string(),
+  INSTAGRAM_WEBHOOKS: Env.schema.string(),
 })

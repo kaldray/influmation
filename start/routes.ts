@@ -11,6 +11,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 const InstagramController = () => import('#instagram/instagram_controller')
 const AuthController = () => import('#auth/auth_controller')
+const WebhookController = () => import('#webhook/webhook_controller')
 
 router
   .group(() => {
@@ -28,9 +29,10 @@ router
 router.get('/', async ({ inertia }) => {
   return inertia.render('guest')
 })
-router.get('/webhooks', ({ request }) => {
-  console.log(request.qs())
-  return 'Webhooks'
+
+router.group(() => {
+  router.get('/webhooks', [WebhookController, 'verification'])
 })
+
 router.get('/vie-privee', ({ inertia }) => inertia.render('privacy'))
 router.get('login', [InstagramController, 'authorization'])

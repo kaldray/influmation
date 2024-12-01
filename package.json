@@ -16,6 +16,7 @@
   },
   "imports": {
     "#instagram/*": "./app/auth/instagram/*.js",
+    "#webhook/*": "./app/webhook/*.js",
     "#auth/*": "./app/auth/*.js",
     "#utils/*": "./app/utils/*.js",
     "#user/*": "./app/user/*.js",
