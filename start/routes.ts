@@ -32,6 +32,7 @@ router.get('/', async ({ inertia }) => {
 
 router.group(() => {
   router.get('/webhooks', [WebhookController, 'verification'])
+  router.post('/webhooks', [WebhookController, 'events'])
 })
 
 router.get('/vie-privee', ({ inertia }) => inertia.render('privacy'))
