@@ -3,6 +3,7 @@ import IntagramService from '#instagram/instagram_service'
 import { url_authorization_schema } from '#instagram/instagram_validators'
 import UserRepository from '#user/user_repository'
 import { assert } from '#utils/utils'
+import WebhookService from '#webhook/webhook_service'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
@@ -11,7 +12,8 @@ import vine from '@vinejs/vine'
 export default class InstargamController {
   constructor(
     private instagram_service: IntagramService,
-    private user_repository: UserRepository
+    private user_repository: UserRepository,
+    private webhook_service: WebhookService
   ) {}
 
   authorization({ response, session }: HttpContext) {
@@ -42,6 +44,15 @@ export default class InstargamController {
         expires_in,
         oauthProviderName: 'instagram',
       })
+      if (!user.isSubscribe) {
+        const subscribe_response = await this.webhook_service.subscribeToWebhook(
+          user.accessToken,
+          user.oauthProviderId
+        )
+        if (subscribe_response.success) {
+          this.user_repository.update_is_subscribe(user.id)
+        }
+      }
       session.put('instagram_token', access_token)
       session.put('instagram_token_expires', user.expiresAt)
       await auth.use('web').login(user)

@@ -9,6 +9,9 @@ export default class User extends BaseModel {
   declare username: string
 
   @column()
+  declare isSubscribe: boolean
+
+  @column()
   declare accessToken: string
 
   @column()

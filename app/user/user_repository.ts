@@ -17,4 +17,10 @@ export default class UserRepository {
     )
     return user
   }
+
+  async update_is_subscribe(primary_key: number) {
+    const user = await UserModel.findOrFail(primary_key)
+    user.isSubscribe = true
+    await user.save()
+  }
 }

@@ -75,16 +75,45 @@ export type IgMediaChamps =
   | 'timestamp'
   | 'username'
 
+type InstagramWebhookFields =
+  | 'comments'
+  | 'live_comments'
+  | 'message_reactions'
+  | 'messages'
+  | 'messaging_optins'
+  | 'messaging_postbacks'
+  | 'messaging_referral'
+  | 'messaging_seen'
+
 export default class IntagramService {
-  #authorize_url = 'https://www.instagram.com/oauth/authorize'
-  #acces_url = 'https://api.instagram.com/oauth/access_token'
-  #user_url = 'https://graph.instagram.com/v21.0/me'
-  #base_url = 'https://graph.instagram.com/v21.0'
+  #authorize_url = 'https://www.instagram.com/oauth/authorize' as const
+  #acces_url = 'https://api.instagram.com/oauth/access_token' as const
+  #user_url = 'https://graph.instagram.com/v21.0/me' as const
+  #base_url = 'https://graph.instagram.com/v21.0' as const
   #long_access_url = 'https://graph.instagram.com/access_token'
   #scopes =
-    'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments'
-  #fields = 'user_id,username'
-  #redirect_uri = 'https://api.influmation/api/v1/facebook/redirect'
+    'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments' as const
+  #fields = 'user_id,username' as const
+  #redirect_uri = 'https://api.influmation/api/v1/facebook/redirect' as const
+
+  /**
+   * @param access_token
+   * @param user_id
+   */
+  async subscribeToWehooks(access_token: string, user_id: string): Promise<{ success: true }> {
+    const url = new URL(`${this.#base_url}/${user_id}/subscribed_apps`)
+    const list_of_fields: Array<Partial<InstagramWebhookFields>> = [
+      'comments',
+      'messages',
+      'messaging_seen',
+    ]
+    url.searchParams.set('access_token', access_token)
+    url.searchParams.set('subscribed_fields', list_of_fields.join(','))
+    const response = await fetch(url, { method: 'POST' })
+    return response.json() as Promise<{
+      success: true
+    }>
+  }
 
   makeAutorizationUrl(state: string): string {
     return `${new URL(this.#authorize_url)}?${this.#buildAutorizationSearchParams(state)}`
