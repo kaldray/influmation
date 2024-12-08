@@ -18,6 +18,7 @@
     "#instagram/*": "./app/auth/instagram/*.js",
     "#webhook/*": "./app/webhook/*.js",
     "#auth/*": "./app/auth/*.js",
+    "#message/*": "./app/message/*.js",
     "#utils/*": "./app/utils/*.js",
     "#user/*": "./app/user/*.js",
     "#controllers/*": "./app/controllers/*.js",

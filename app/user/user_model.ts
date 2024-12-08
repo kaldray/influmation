@@ -1,7 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
+import { type HasMany } from '@adonisjs/lucid/types/relations'
+import Message from '#message/message_model'
 
 export default class User extends BaseModel {
+  @hasMany(() => Message, {
+    foreignKey: 'oauthProviderId',
+  })
+  declare messages: HasMany<typeof Message>
+
   @column({ isPrimary: true })
   declare id: number
 

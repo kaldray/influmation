@@ -10,7 +10,8 @@
       "#auth/*": ["./app/auth/*.ts"],
       "#utils/*": ["./app/utils/*.ts"],
       "#exceptions/*": ["./app/exceptions/*.ts"],
-      "#webhook/*": ["./app/webhook/*.ts"]
+      "#webhook/*": ["./app/webhook/*.ts"],
+      "#message/*": ["./app/message/*.ts"]
     }
   },
   "exclude": ["./inertia/**/*", "node_modules", "build"]
