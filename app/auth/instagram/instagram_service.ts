@@ -30,7 +30,7 @@ type IdsMediaUserResponse = {
   }
 }
 
-type IgMediaUser =
+export type IgMediaUser =
   | {
       id: string
       is_comment_enabled: boolean

@@ -35,7 +35,7 @@ function Media({ medias }: InferPageProps<InstagramController, 'getMedia'>) {
                 maxWidth: '1/4',
               })}
             >
-              <Link href="/">
+              <Link href={`post/${data.id}`}>
                 <img
                   className={css({
                     height: '100%',
@@ -61,7 +61,7 @@ function Media({ medias }: InferPageProps<InstagramController, 'getMedia'>) {
               maxWidth: '1/4',
             })}
           >
-            <Link href="/">
+            <Link href={`post/${data.id}`}>
               <img
                 className={css({
                   height: '100%',

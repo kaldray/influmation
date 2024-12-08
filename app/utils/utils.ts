@@ -7,6 +7,12 @@ export function assert(value: unknown, message: string): asserts value {
   }
 }
 
+export function assertIsString(value: unknown): asserts value is string {
+  if (typeof value !== 'string') {
+    throw new Error('Value is not a string')
+  }
+}
+
 function generateSignature(payload: any) {
   const signature = createHmac('sha256', env.get('INSTAGRAM_CLIENT_SECRET'))
     .update(payload)

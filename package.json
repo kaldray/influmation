@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "imports": {
+    "#post/*": "./app/post/*.js",
     "#instagram/*": "./app/auth/instagram/*.js",
     "#webhook/*": "./app/webhook/*.js",
     "#auth/*": "./app/auth/*.js",
