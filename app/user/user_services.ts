@@ -9,4 +9,8 @@ export default class UserServices {
   create_user(user: InstagramUser) {
     return this.user_ropository.create_or_update(user)
   }
+
+  find_by(by: string, id: string) {
+    return this.user_ropository.find_by(by, id)
+  }
 }

@@ -1,6 +1,8 @@
 import { type HttpContext } from '@adonisjs/core/http'
 import { assert, verifySignature } from '#utils/utils'
 import env from '#start/env'
+import WebkookReceived from '#webhook/events/webhook_received'
+import { webhook_feed_comments_validator } from './webhook_validators.js'
 
 export default class WebhookController {
   async verification({ response, request }: HttpContext) {
@@ -15,6 +17,14 @@ export default class WebhookController {
     assert(header_signature, 'Header Signature is undefined')
     const payload = request.raw()
     const signature_is_valid = verifySignature(payload, header_signature)
+    if (signature_is_valid) {
+      const [error, data] = await webhook_feed_comments_validator.tryValidate(request.body())
+      if (error) {
+        console.error(error)
+      }
+      assert(data, 'The Payload is null')
+      WebkookReceived.dispatch(data)
+    }
     return response.ok(signature_is_valid)
   }
 }

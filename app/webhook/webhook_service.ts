@@ -1,3 +1,5 @@
+import { type TextMessagePayload } from '#webhook/listeners/send_message'
+
 type InstagramWebhookFields =
   | 'comments'
   | 'live_comments'
@@ -28,5 +30,18 @@ export default class WebhookService {
     return response.json() as Promise<{
       success: true
     }>
+  }
+
+  async sendCommentResponse(access_token: string, user_id: string, body: TextMessagePayload) {
+    const url = new URL(`${this.#base_url}/${user_id}/messages`)
+    const headers = new Headers()
+    headers.append('Authorization', `Bearer ${access_token}`)
+    headers.append('Content-Type', 'application/json')
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: headers,
+    })
+    return response.json()
   }
 }

@@ -23,4 +23,9 @@ export default class UserRepository {
     user.isSubscribe = true
     await user.save()
   }
+
+  async find_by(by: string, id: string) {
+    const user = await UserModel.findBy({ [by]: id })
+    return user
+  }
 }
