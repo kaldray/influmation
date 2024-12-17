@@ -1,9 +1,16 @@
 import { defineConfig } from '@pandacss/dev'
+import { createPreset } from '@park-ui/panda-preset'
+import sand from '@park-ui/panda-preset/colors/sand'
+import neutral from '@park-ui/panda-preset/colors/neutral'
 
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
-  presets: ['@pandacss/preset-base', '@park-ui/panda-preset'],
+  presets: [
+    '@pandacss/preset-base',
+    '@pandacss/preset-panda',
+    createPreset({ accentColor: neutral, grayColor: sand, radius: 'sm' }),
+  ],
   // Where to look for your css declarations
   include: [
     './inertia/pages/**/*.{ts,tsx}',
