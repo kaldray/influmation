@@ -4,9 +4,7 @@ import { type HasMany } from '@adonisjs/lucid/types/relations'
 import Message from '#message/message_model'
 
 export default class User extends BaseModel {
-  @hasMany(() => Message, {
-    foreignKey: 'oauthProviderId',
-  })
+  @hasMany(() => Message)
   declare messages: HasMany<typeof Message>
 
   @column({ isPrimary: true })

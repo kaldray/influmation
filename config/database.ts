@@ -3,8 +3,10 @@ import { defineConfig } from '@adonisjs/lucid'
 
 const dbConfig = defineConfig({
   connection: 'sqlite',
+  prettyPrintDebugQueries: true,
   connections: {
     sqlite: {
+      debug: !app.inProduction,
       client: 'better-sqlite3',
       connection: {
         filename: app.tmpPath('db.sqlite3'),

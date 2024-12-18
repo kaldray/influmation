@@ -18,7 +18,8 @@ router
   .group(() => {
     router.get('/home', [InstagramController, 'getMedia'])
     router.post('/logout', [AuthController, 'logout'])
-    router.get('/post/:id', [PostController, 'show'])
+    router.get('/post/:id', [PostController, 'show']).as('post.show')
+    router.post('/post', [PostController, 'store']).as('post.store')
   })
   .use(middleware.auth())
 

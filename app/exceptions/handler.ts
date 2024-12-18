@@ -3,6 +3,7 @@ import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
 import { errors } from '@adonisjs/core'
 import StateMismatchException from '#exceptions/exceptions'
+import { errors as vineErrors } from '@vinejs/vine'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -32,6 +33,10 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof vineErrors.E_VALIDATION_ERROR) {
+      ctx.session.flash('errors', error.messages)
+      return ctx.response.redirect().back()
+    }
     if (error instanceof errors.E_HTTP_REQUEST_ABORTED) {
       return ctx.inertia.render('errors/not_found', { error })
     }

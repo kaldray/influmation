@@ -7,8 +7,8 @@ import {
   forwardRef,
   useContext,
 } from 'react'
-import { cx } from 'styled-system/css'
-import { type StyledComponent, isCssProperty, styled } from 'styled-system/jsx'
+import { cx } from '#style/css'
+import { type StyledComponent, isCssProperty, styled } from '#style/jsx'
 
 type Props = Record<string, unknown>
 type Recipe = {
@@ -41,14 +41,14 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
   const withProvider = <T, P extends { className?: string | undefined }>(
     Component: ElementType,
     slot: Slot<R>,
-    options?: Options,
+    options?: Options
   ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>> => {
     const StyledComponent = styled(
       Component,
       {},
       {
         shouldForwardProp: (prop, variantKeys) => shouldForwardProp(prop, variantKeys, options),
-      },
+      }
     ) as StyledComponent<ElementType>
     const StyledSlotProvider = forwardRef<T, P>((props, ref) => {
       const [variantProps, otherProps] = recipe.splitVariantProps(props)
@@ -72,7 +72,7 @@ export const createStyleContext = <R extends Recipe>(recipe: R) => {
 
   const withContext = <T, P extends { className?: string | undefined }>(
     Component: ElementType,
-    slot: Slot<R>,
+    slot: Slot<R>
   ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>> => {
     const StyledComponent = styled(Component)
     const StyledSlotComponent = forwardRef<T, P>((props, ref) => {

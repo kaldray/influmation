@@ -17,10 +17,7 @@ export default class Message extends BaseModel {
   declare postId: string
 
   @column()
-  declare oauthProviderId: string
-
-  @column()
-  declare oauthProviderName: string
+  declare userId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
