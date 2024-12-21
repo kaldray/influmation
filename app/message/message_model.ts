@@ -11,7 +11,10 @@ export default class Message extends BaseModel {
   declare id: number
 
   @column()
-  declare message: string
+  declare messageToSent: string
+
+  @column()
+  declare messageToListen: string
 
   @column()
   declare postId: string

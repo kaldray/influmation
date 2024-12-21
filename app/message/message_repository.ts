@@ -8,10 +8,15 @@ export default class MessageRepository {
     MessageModel.updateOrCreate(
       { userId: args.user_id, postId: args.post_id },
       {
-        message: args.message,
+        messageToSent: args.message_to_sent,
+        messageToListen: args.message_to_listen,
         postId: args.post_id,
         userId: args.user_id,
       }
     )
+  }
+
+  async findByUserAndPost(user_id: number, post_id: string) {
+    return MessageModel.findManyBy({ userId: user_id, postId: post_id })
   }
 }

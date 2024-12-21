@@ -9,4 +9,8 @@ export default class MessageService {
   async create_or_update(args: MessageType) {
     this.message_repository.create_or_update(args)
   }
+
+  async findBy(user_id: number, post_id: string) {
+    return this.message_repository.findByUserAndPost(user_id, post_id)
+  }
 }

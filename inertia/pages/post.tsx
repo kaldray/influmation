@@ -6,15 +6,21 @@ import type PostController from '#post/post_controller'
 import { Field } from '#ui/components/ui/field'
 import { Button } from '#ui/components/ui/button'
 import { HStack, VStack } from '#style/jsx'
-import { router } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 
 function handleSubmit(e: FormEvent<HTMLFormElement>, id: string) {
   e.preventDefault()
   const form = new FormData(e.currentTarget)
-  router.post('/post', { message: form.get('message'), post_id: id })
+  router.post('/post', {
+    message_to_listen: form.get('message_to_listen'),
+    message_to_sent: form.get('message_to_sent'),
+    post_id: id,
+  })
 }
 
 const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
+  const { errors } = usePage().props
+  console.log(errors)
   return (
     <>
       <h1 className={css({ marginTop: '3.5' })}>Votre publication</h1>
@@ -47,20 +53,36 @@ const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
           <form onSubmit={(e) => handleSubmit(e, media.id)}>
             <VStack marginBlockEnd={'3'}>
               <Field.Root>
-                <Field.Label htmlFor="message">
+                <Field.Label htmlFor="message_to_listen">
                   A quel commentaire souhaitez vous répondre ?
                 </Field.Label>
                 <Field.Input
-                  name="message"
-                  id="message"
+                  name="message_to_listen"
+                  id="message_to_listen"
                   type="text"
                   required
                   placeholder="Je participe"
                 />
+                <Field.HelperText>
+                  Le commentaire entré sera pris en compte tel quel.
+                </Field.HelperText>
               </Field.Root>
-              <Field.HelperText>
-                Le commentaire entré sera pris en compte tel quel.
-              </Field.HelperText>
+              <Field.Root>
+                <Field.Label htmlFor="message_to_sent">
+                  Choisir le message à envoyer en réponse.
+                </Field.Label>
+                <Field.Textarea
+                  name="message_to_sent"
+                  id="message_to_sent"
+                  resize={'none'}
+                  rows={4}
+                  required
+                  placeholder="Votre participation à bien été pris en compte"
+                />
+                <Field.HelperText>
+                  Le commentaire entré sera pris en compte tel quel.
+                </Field.HelperText>
+              </Field.Root>
             </VStack>
             <HStack justifyContent={'center'}>
               <Button>Envoyer</Button>

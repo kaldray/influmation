@@ -4,7 +4,6 @@ import { assert, assertIsString } from '#utils/utils'
 import { inject } from '@adonisjs/core'
 import MessageService from '#message/message_service'
 import { message_validator } from '#message/message_validator'
-import vine from '@vinejs/vine'
 
 @inject()
 export default class PostController {

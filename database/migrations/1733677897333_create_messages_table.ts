@@ -6,7 +6,8 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.text('message')
+      table.text('message_to_listen')
+      table.text('message_to_sent')
       table.string('post_id')
       table.integer('user_id').notNullable().references('id').inTable('users')
       table.timestamp('created_at')
