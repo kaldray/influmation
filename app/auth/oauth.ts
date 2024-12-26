@@ -4,7 +4,7 @@ import { base64 } from '@adonisjs/core/helpers'
 export function generateState(): string {
   const randomValues = new Uint8Array(32)
   crypto.getRandomValues(randomValues)
-  return base64.urlEncode(randomValues)
+  return base64.urlEncode(randomValues.buffer)
 }
 
 export function verifyState(urlState: string, sessionState: string): boolean {

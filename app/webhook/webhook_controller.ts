@@ -8,13 +8,15 @@ export default class WebhookController {
   async verification({ response, request }: HttpContext) {
     const payload = request.qs()
     if (payload['hub.verify_token'] === env.get('INSTAGRAM_WEBHOOKS')) {
-      return response.status(200).send(payload['hub.challenge'])
+      return response.status(200).json(payload['hub.challenge'])
     }
     return response.status(403)
   }
   async events({ request, response }: HttpContext) {
     const header_signature = request.header('X-Hub-Signature-256')
-    assert(header_signature, 'Header Signature is undefined')
+    if (header_signature === undefined) {
+      return response.status(422)
+    }
     const payload = request.raw()
     const signature_is_valid = verifySignature(payload, header_signature)
     if (signature_is_valid) {
