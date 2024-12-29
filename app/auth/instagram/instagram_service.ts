@@ -47,12 +47,33 @@ export type IgMediaUser =
       id: string
       is_comment_enabled: boolean
       media_product_type: 'FEED' | 'AD' | 'STORY' | 'REELS'
-      media_type: 'CAROUSEL_ALBUM' | 'IMAGE' | 'VIDEO'
+      media_type: 'IMAGE'
       media_url: string
       permalink: string
       shortcode: string
       timestamp: string
       username: string
+    }
+  | {
+      id: string
+      is_comment_enabled: boolean
+      media_product_type: 'FEED' | 'AD' | 'STORY' | 'REELS'
+      media_type: 'CAROUSEL_ALBUM'
+      media_url: string
+      permalink: string
+      shortcode: string
+      timestamp: string
+      username: string
+      children: {
+        data: Array<
+          | {
+              id: string
+              media_type: 'IMAGE'
+              media_url: string
+            }
+          | { thumbnail_url: string; media_type: 'VIDEO'; id: string }
+        >
+      }
     }
 
 export type IgMediaChamps =
@@ -74,6 +95,7 @@ export type IgMediaChamps =
   | 'thumbnail_url'
   | 'timestamp'
   | 'username'
+  | `children{${string}}`
 
 type InstagramWebhookFields =
   | 'comments'
@@ -175,6 +197,7 @@ export default class IntagramService {
       'thumbnail_url',
       'shortcode',
       'permalink',
+      'children{media_type,media_url,thumbnail_url,id}',
     ]
     const media_fields = arr_fields.join(',')
     url.searchParams.set('access_token', acces_token)
