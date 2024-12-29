@@ -13,4 +13,8 @@ export default class MessageService {
   async findBy(user_id: number, post_id: string) {
     return this.message_repository.findByUserAndPost(user_id, post_id)
   }
+
+  async findOneBy(user_id: number, post_id: string) {
+    return this.message_repository.findUniqueByUserAndPost(user_id, post_id)
+  }
 }

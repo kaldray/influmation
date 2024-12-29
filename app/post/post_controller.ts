@@ -4,6 +4,7 @@ import { assert, assertIsString } from '#utils/utils'
 import { inject } from '@adonisjs/core'
 import MessageService from '#message/message_service'
 import { message_validator } from '#message/message_validator'
+import MessageDto from '#message/message_dto'
 
 @inject()
 export default class PostController {
@@ -20,7 +21,9 @@ export default class PostController {
     if ('error' in media) {
       return response.redirect('/home')
     }
-    return inertia.render('post', { media: media })
+    const message = await this.message_service.findOneBy(user.id, id)
+
+    return inertia.render('post', { media: media, message: new MessageDto(message).toJson() })
   }
   async store({ request, auth, response, session }: HttpContext) {
     const user = auth.user

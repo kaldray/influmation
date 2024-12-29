@@ -7,6 +7,8 @@ import { Field } from '#ui/components/ui/field'
 import { Button } from '#ui/components/ui/button'
 import { HStack, VStack } from '#style/jsx'
 import { router, usePage } from '@inertiajs/react'
+import { Link } from '#ui/components/ui/link'
+import { Link as InertiaLink } from '@inertiajs/react'
 
 function handleSubmit(e: FormEvent<HTMLFormElement>, id: string) {
   e.preventDefault()
@@ -18,12 +20,15 @@ function handleSubmit(e: FormEvent<HTMLFormElement>, id: string) {
   })
 }
 
-const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
+const Post = ({ media, message }: InferPageProps<PostController, 'show'>) => {
   const { errors } = usePage().props
-  console.log(errors)
   return (
     <>
-      <h1 className={css({ marginTop: '3.5' })}>Votre publication</h1>
+      <div className={css({ my: '2.5' })}>
+        <Link asChild>
+          <InertiaLink href="/home">Retour</InertiaLink>
+        </Link>
+      </div>
       <section
         className={css({
           display: 'flex',
@@ -57,6 +62,7 @@ const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
                   A quel commentaire souhaitez vous répondre ?
                 </Field.Label>
                 <Field.Input
+                  defaultValue={message?.message_to_listen}
                   name="message_to_listen"
                   id="message_to_listen"
                   type="text"
@@ -72,6 +78,7 @@ const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
                   Choisir le message à envoyer en réponse.
                 </Field.Label>
                 <Field.Textarea
+                  defaultValue={message?.message_to_sent}
                   name="message_to_sent"
                   id="message_to_sent"
                   resize={'none'}
@@ -94,7 +101,7 @@ const Post = ({ media }: InferPageProps<PostController, 'show'>) => {
   )
 }
 
-function Media({ media }: InferPageProps<PostController, 'show'>) {
+function Media({ media }: Omit<InferPageProps<PostController, 'show'>, 'message'>) {
   return (
     <>
       {'thumbnail_url' in media ? (

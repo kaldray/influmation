@@ -19,4 +19,8 @@ export default class MessageRepository {
   async findByUserAndPost(user_id: number, post_id: string) {
     return MessageModel.findManyBy({ userId: user_id, postId: post_id })
   }
+
+  async findUniqueByUserAndPost(user_id: number, post_id: string) {
+    return MessageModel.findBy({ userId: user_id, postId: post_id })
+  }
 }
