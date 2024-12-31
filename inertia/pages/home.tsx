@@ -1,4 +1,4 @@
-import { useEffect, useRef, type MouseEvent, type ReactNode, type RefObject } from 'react'
+import { useRef, type MouseEvent, type ReactNode, type RefObject } from 'react'
 import { AuthLayout } from '#ui/components/Layout'
 import { type InferPageProps } from '@adonisjs/inertia/types'
 import type InstagramController from '../../app/auth/instagram/instagram_controller'
@@ -117,38 +117,10 @@ function Media({ medias }: InferPageProps<InstagramController, 'getMedia'>) {
 }
 
 function Carousel({ data }: IgMediaCarousel) {
-  const container = useRef<Element[] | null>([])
-  const carouselControlRef = useRef<HTMLAnchorElement[] | null>([])
-  const itemsRef = useRef<Map<unknown, Element>>()
-
-  useEffect(() => {
-    let observer: IntersectionObserver
-    if (container.current) {
-      container.current.forEach((elem) => {
-        observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              const node = carouselControlRef.current?.find(
-                (elem) => elem.getAttribute('data-id') === entry.target.getAttribute('id')
-              )
-              if (entry.isIntersecting) {
-                node?.setAttribute('data-active', 'true')
-              } else {
-                node?.removeAttribute('data-active')
-              }
-            })
-          },
-          { root: elem, threshold: 0.5 }
-        )
-        for (const child of elem.children) {
-          observer.observe(child)
-        }
-      })
-    }
-    return () => {
-      observer.disconnect()
-    }
-  }, [])
+  const container = useRef<Element[]>([])
+  const carouselControlRef = useRef<HTMLAnchorElement[]>([])
+  const itemsRef = useRef<Map<unknown, Element>>(null)
+  let observer: IntersectionObserver
 
   function attachNodeOnRef(node: HTMLElement | null, ref: RefObject<Element[]> | null) {
     if (node) {
@@ -187,6 +159,31 @@ function Carousel({ data }: IgMediaCarousel) {
     }
   }
 
+  function attatchObserver() {
+    if (container.current) {
+      container.current.forEach((elem) => {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const node = carouselControlRef.current?.find(
+                (elem) => elem.getAttribute('data-id') === entry.target.getAttribute('id')
+              )
+              if (entry.isIntersecting) {
+                node?.setAttribute('data-active', 'true')
+              } else {
+                node?.removeAttribute('data-active')
+              }
+            })
+          },
+          { root: elem, threshold: 0.5 }
+        )
+        for (const child of elem.children) {
+          observer.observe(child)
+        }
+      })
+    }
+  }
+
   return (
     <div
       className={css({
@@ -196,7 +193,11 @@ function Carousel({ data }: IgMediaCarousel) {
     >
       <Link href={`post/${data.id}`}>
         <div
-          ref={(node) => attachNodeOnRef(node, container)}
+          ref={(node) => {
+            attachNodeOnRef(node, container)
+            attatchObserver()
+            return () => observer.disconnect()
+          }}
           className={css({
             scrollSnapType: 'x mandatory',
             overflowX: 'scroll',

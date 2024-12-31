@@ -1,6 +1,11 @@
 import { configApp } from '@adonisjs/eslint-config'
+import reactCompiler from 'eslint-plugin-react-compiler'
+
 export default configApp({
   files: ['**/*.ts', '**/*.tsx'],
+  plugins: {
+    'react-compiler': reactCompiler,
+  },
   rules: {
     '@typescript-eslint/naming-convention': [
       'warn',
@@ -17,5 +22,6 @@ export default configApp({
         format: ['PascalCase'],
       },
     ],
+    'react-compiler/react-compiler': 'error',
   },
 })

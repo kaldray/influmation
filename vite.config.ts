@@ -5,6 +5,10 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { getDirname } from '@adonisjs/core/helpers'
 
+const ReactCompilerConfig = {
+  target: '19',
+}
+
 export default defineConfig({
   server: {
     host: true,
@@ -13,7 +17,7 @@ export default defineConfig({
       port: 81,
       clientPort: 443,
       path: '/hmr',
-      timeout: 10000,
+      timeout: 1000,
     },
     watch: {
       usePolling: true,
@@ -28,7 +32,7 @@ export default defineConfig({
   },
   plugins: [
     inertia({ ssr: { enabled: true, entrypoint: 'inertia/app/ssr.tsx' } }),
-    react(),
+    react({ babel: { plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]] } }),
     adonisjs({
       entrypoints: ['inertia/app/app.tsx'],
       reload: ['resources/views/**/*.edge', './inertia/src/components/**/*.{ts,tsx}'],
