@@ -283,6 +283,9 @@ function Carousel({ data }: IgMediaCarousel) {
                   'padding': '5px 10px',
                   'borderRadius': 'full',
                   'backgroundColor': 'rgba(0, 0, 0, 0.2)',
+                  'transition': 'background',
+                  'transitionTimingFunction': 'ease-in',
+                  'transitionDuration': 'fast',
                   '_hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.4)',
                     cursor: 'pointer',
