@@ -55,7 +55,7 @@ export default class InstargamController {
       }
       session.put('instagram_token', access_token)
       session.put('instagram_token_expires', user.expiresAt)
-      await auth.use('web').login(user)
+      await auth.use('web').login(user, true)
       inertia.encryptHistory(true)
       response.redirect('/home')
     }

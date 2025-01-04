@@ -2,6 +2,8 @@ import { DateTime } from 'luxon'
 import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
 import { type HasMany } from '@adonisjs/lucid/types/relations'
 import Message from '#message/message_model'
+import { DbRememberMeTokensProvider } from '@adonisjs/auth/session'
+import hash from '@adonisjs/core/services/hash'
 
 export default class User extends BaseModel {
   @hasMany(() => Message)
@@ -38,7 +40,10 @@ export default class User extends BaseModel {
   declare updatedAt: DateTime | null
 
   @beforeCreate()
-  static setExpiresAt(user: User) {
+  static async setExpiresAt(user: User) {
     user.expiresAt = DateTime.now().plus({ seconds: user.expiresIn })
+    hash.restore()
   }
+
+  static rememberMeTokens = DbRememberMeTokensProvider.forModel(User)
 }
