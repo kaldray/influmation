@@ -13,6 +13,7 @@ const InstagramController = () => import('#instagram/instagram_controller')
 const AuthController = () => import('#auth/auth_controller')
 const WebhookController = () => import('#webhook/webhook_controller')
 const PostController = () => import('#post/post_controller')
+const MessageController = () => import('#message/message_controller')
 
 router
   .group(() => {
@@ -20,6 +21,7 @@ router
     router.post('/logout', [AuthController, 'logout'])
     router.get('/post/:id', [PostController, 'show']).as('post.show')
     router.post('/post', [PostController, 'store']).as('post.store')
+    router.get('/dashboard', [MessageController, 'index'])
   })
   .use(middleware.auth())
 

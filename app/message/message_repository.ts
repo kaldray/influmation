@@ -23,4 +23,8 @@ export default class MessageRepository {
   async findUniqueByUserAndPost(user_id: number, post_id: string) {
     return MessageModel.findBy({ userId: user_id, postId: post_id })
   }
+
+  async getAll() {
+    return await MessageModel.all()
+  }
 }

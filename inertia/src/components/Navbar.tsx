@@ -13,6 +13,11 @@ export function Navbar() {
               Se déconnectez
             </NavLink>
           </Link>
+          <Link color={'white'} _hover={{ textDecorationColor: 'white' }} asChild>
+            <NavLink href="/dashboard" as="button" type="button">
+              Vue d'ensemble
+            </NavLink>
+          </Link>
         </HStack>
       </nav>
     </>
