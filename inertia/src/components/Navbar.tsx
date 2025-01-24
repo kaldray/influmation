@@ -14,6 +14,11 @@ export function Navbar() {
             </NavLink>
           </Link>
           <Link color={'white'} _hover={{ textDecorationColor: 'white' }} asChild>
+            <NavLink href="/conversation" as="button" prefetch type="button">
+              Conversation
+            </NavLink>
+          </Link>
+          <Link color={'white'} _hover={{ textDecorationColor: 'white' }} asChild>
             <NavLink href="/dashboard" as="button" prefetch type="button">
               Vue d'ensemble
             </NavLink>

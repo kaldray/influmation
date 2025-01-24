@@ -9,34 +9,34 @@ export default class User extends BaseModel {
   @hasMany(() => Message)
   declare messages: HasMany<typeof Message>
 
-  @column({ isPrimary: true })
+  @column({ isPrimary: true, serializeAs: null })
   declare id: number
 
   @column()
   declare username: string
 
-  @column()
+  @column({ serializeAs: null })
   declare isSubscribe: boolean
 
-  @column()
+  @column({ serializeAs: null })
   declare accessToken: string
 
-  @column()
+  @column({ serializeAs: null })
   declare oauthProviderId: string
 
-  @column()
+  @column({ serializeAs: null })
   declare oauthProviderName: string
 
-  @column()
+  @column({ serializeAs: null })
   declare expiresIn: number
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   declare expiresAt: DateTime
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   declare updatedAt: DateTime | null
 
   @beforeCreate()

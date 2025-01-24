@@ -14,6 +14,7 @@ const AuthController = () => import('#auth/auth_controller')
 const WebhookController = () => import('#webhook/webhook_controller')
 const PostController = () => import('#post/post_controller')
 const MessageController = () => import('#message/message_controller')
+const ConversationController = () => import('#conversation/conversation_controller')
 
 router
   .group(() => {
@@ -22,6 +23,7 @@ router
     router.get('/post/:id', [PostController, 'show']).as('post.show')
     router.post('/post', [PostController, 'store']).as('post.store')
     router.get('/dashboard', [MessageController, 'index'])
+    router.get('/conversation/:id?', [ConversationController, 'index'])
   })
   .use(middleware.auth())
 

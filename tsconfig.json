@@ -11,7 +11,8 @@
       "#utils/*": ["./app/utils/*.ts"],
       "#exceptions/*": ["./app/exceptions/*.ts"],
       "#webhook/*": ["./app/webhook/*.ts"],
-      "#message/*": ["./app/message/*.ts"]
+      "#message/*": ["./app/message/*.ts"],
+      "#conversation/*": ["./app/conversation/*.ts"]
     }
   },
   "exclude": ["./inertia/**/*", "node_modules", "build"]

@@ -1,7 +1,7 @@
 import { defineConfig } from '@pandacss/dev'
 import { createPreset } from '@park-ui/panda-preset'
-import sand from '@park-ui/panda-preset/colors/sand'
 import neutral from '@park-ui/panda-preset/colors/neutral'
+import sand from '@park-ui/panda-preset/colors/sand'
 
 export default defineConfig({
   // Whether to use css reset
@@ -9,7 +9,7 @@ export default defineConfig({
   presets: [
     '@pandacss/preset-base',
     '@pandacss/preset-panda',
-    createPreset({ accentColor: neutral, grayColor: sand, radius: 'sm' }),
+    createPreset({ accentColor: sand, grayColor: neutral, radius: 'sm' }),
   ],
   // Where to look for your css declarations
   include: [

@@ -16,6 +16,7 @@
     "test:http": "node ace test functional --watch"
   },
   "imports": {
+    "#conversation/*": "./app/conversation/*.js",
     "#post/*": "./app/post/*.js",
     "#instagram/*": "./app/auth/instagram/*.js",
     "#webhook/*": "./app/webhook/*.js",
